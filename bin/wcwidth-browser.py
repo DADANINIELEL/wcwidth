@@ -289,7 +289,7 @@ class Pager(object):
         self.unicode_version = 'auto'
         self.dirty = self.STATE_REFRESH
         self.last_page = 0
-        self._page_data = list()
+        self._page_data = []
 
     def on_resize(self, *args):
         """Signal handler callback for SIGWINCH."""
@@ -319,7 +319,7 @@ class Pager(object):
             self.display_initialize()
         self.character_generator = self.character_factory(
             self.screen.wide)
-        self._page_data = list()
+        self._page_data = []
         while True:
             try:
                 self._page_data.append(next(self.character_generator))
@@ -568,10 +568,7 @@ class Pager(object):
             writer(self.term.hide_cursor())
             style = self.screen.style
             writer(self.term.move(self.term.height - 1))
-            if idx == self.last_page:
-                last_end = '(END)'
-            else:
-                last_end = '/{0}'.format(self.last_page)
+            last_end = '(END)' if idx == self.last_page else '/{0}'.format(self.last_page)
             txt = ('Page {idx}{last_end} - '
                    '{q} to quit, [keys: {keyset}]'
                    .format(idx=style.attr_minor('{0}'.format(idx)),

@@ -123,10 +123,7 @@ def main(using_locale=('en_US', 'UTF-8',)):
     assert getattr(libc, 'wcswidth', None) is not None
 
     locale.setlocale(locale.LC_ALL, using_locale)
-    unicode_version = 'latest'
-    if len(sys.argv) > 1:
-        unicode_version = sys.argv[1]
-
+    unicode_version = sys.argv[1] if len(sys.argv) > 1 else 'latest'
     for ucs in all_ucs:
         try:
             _is_equal_wcwidth(libc, ucs, unicode_version)

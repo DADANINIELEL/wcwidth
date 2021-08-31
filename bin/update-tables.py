@@ -112,11 +112,11 @@ def do_rst_file_update():
 def do_east_asian(versions):
     """Fetch and update east-asian tables."""
     table = {}
+    url = ('http://www.unicode.org/Public/{version}/'
+           'ucd/EastAsianWidth.txt')
     for version in versions:
         fin = os.path.join(PATH_DATA, 'EastAsianWidth-{version}.txt')
         fout = os.path.join(PATH_CODE, 'table_wide.py')
-        url = ('http://www.unicode.org/Public/{version}/'
-               'ucd/EastAsianWidth.txt')
         try:
             do_retrieve(url=url.format(version=version),
                         fname=fin.format(version=version))
@@ -134,10 +134,10 @@ def do_zero_width(versions):
     """Fetch and update zero width tables."""
     table = {}
     fout = os.path.join(PATH_CODE, 'table_zero.py')
+    url = ('http://www.unicode.org/Public/{version}/ucd/extracted/'
+           'DerivedGeneralCategory.txt')
     for version in versions:
         fin = os.path.join(PATH_DATA, 'DerivedGeneralCategory-{version}.txt')
-        url = ('http://www.unicode.org/Public/{version}/ucd/extracted/'
-               'DerivedGeneralCategory.txt')
         try:
             do_retrieve(url=url.format(version=version),
                         fname=fin.format(version=version))
@@ -196,7 +196,7 @@ def describe_file_header(fpath):
     # ``EastAsianWidth-8.0.0.txt``
     #   *2015-02-10, 21:00:00 GMT [KW, LI]*
     fmt = '``{0}``\n  *{1}*\n'
-    if len(header_2) == 0:
+    if not header_2:
         return ''
     assert len(header_2) == 2, (fpath, header_2)
     return fmt.format(*header_2)
