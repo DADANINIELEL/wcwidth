@@ -258,8 +258,7 @@ def _wcversion_value(ver_string):
     :rtype: tuple(int)
     :returns: tuple of digit tuples, ``tuple(int, [...])``.
     """
-    retval = tuple(map(int, (ver_string.split('.'))))
-    return retval
+    return tuple(map(int, (ver_string.split('.'))))
 
 
 @lru_cache(maxsize=8)
